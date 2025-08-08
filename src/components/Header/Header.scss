@@ -1,9 +1,11 @@
+@use "../../variables" as*;
+
 .header__title {
-    font-family: var(--logo-font);
+    font-family: $logo-font;
     margin: 10px;
     font-size: 3rem;
     font-weight: 700;
-    color: var(--text-color);
+    color: $text-color;
 }
 
 .header__nav {
