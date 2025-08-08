@@ -7,3 +7,11 @@ html { box-sizing: border-box; }
     background-color: green;
     font-optical-sizing: auto;
  }
+
+ .container {
+    width: 980px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    }

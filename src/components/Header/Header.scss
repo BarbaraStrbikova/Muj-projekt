@@ -1,0 +1,20 @@
+.header__title {
+    font-family: var(--logo-font);
+    margin: 10px;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.header__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+
+.header__menu {
+    margin: 10px;
+    padding: 10px;
+    color: whitesmoke;
+    border: 2px solid currentColor ;
+}
