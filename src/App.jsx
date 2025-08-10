@@ -1,15 +1,14 @@
-import './App.scss'
-import { FormHomeworks } from './components/Forms/FormHomeworks'
-import { FormSupplies } from './components/Forms/FormSupplies'
+import './App.scss';
 
-import {Header} from './components/Header/Header'
+import {Header} from './components/Header/Header';
+import {Main} from './components/Main/Main';
 
 function App() {
    return (
     <>
     <Header />
-    {/* <FormHomeworks/>
-    <FormSupplies/> */}
+    <Main />
+    
     </>
   )
 }

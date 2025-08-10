@@ -1,0 +1,30 @@
+@use "../../variables" as*;
+
+.homeworks, 
+.supplies{
+    width: 50%;
+    border: 2px solid $border-color;
+    border-radius: 10px;
+    margin: 1em;
+    padding: 1em;
+}
+
+.section__title {
+     font-family: $title-font;
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    color: $text-color;
+}
+
+.border{
+    border: 2px solid grey;
+    border-radius: 10px;
+    margin: 1em;
+    padding:0.3em
+
+}
+
+.title {
+   text-decoration: underline;
+}
