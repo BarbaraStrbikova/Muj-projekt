@@ -1,6 +1,6 @@
-import './Formulars.scss';
+import './Forms.scss';
 
-export function FormularSupplies() {
+export function FormSupplies() {
   return (
 
   <form className="supplies__form">

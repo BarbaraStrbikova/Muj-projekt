@@ -1,6 +1,6 @@
 import './App.scss'
-import { FormularHomeworks } from './components/Formulars/Formular_homeworks'
-import { FormularSupplies } from './components/Formulars/Formular_supplies'
+import { FormHomeworks } from './components/Forms/FormHomeworks'
+import { FormSupplies } from './components/Forms/FormSupplies'
 
 import {Header} from './components/Header/Header'
 
@@ -8,8 +8,8 @@ function App() {
    return (
     <>
     <Header />
-    {/* <FormularHomeworks/>
-    <FormularSupplies/> */}
+    {/* <FormHomeworks/>
+    <FormSupplies/> */}
     </>
   )
 }

@@ -1,6 +1,6 @@
-import './Formulars.scss';
+import './Forms.scss';
 
-export function FormularHomeworks() {
+export function FormHomeworks() {
   return (
   <form className="homeworks__form">
     
