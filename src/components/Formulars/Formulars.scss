@@ -1,0 +1,23 @@
+.homeworks__form,
+.supplies__form {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+}
+
+ .form-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+   
+} 
+
+.form-field label {
+    display: block;
+}
+
+#numbers,
+#minimum {
+    width: 50px;
+}
