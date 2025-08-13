@@ -5,14 +5,27 @@ import './Forms.scss';
 
 export function FormSupplies() {
 
-    const {item,setItem, numbers,setNumbers, minimum, setMinimum, suppliesSubmit} = useContext(SettingsContext)
+  const [item, setItem] = useState();
+  const [numbers, setNumbers] = useState();
+  const [minimum, setMinimum] = useState();
+
+    const {} = useContext(SettingsContext)
+
+    const suppliesSubmit = (e) => {
+    e.preventDefault()
+
+    console.log(item)
+    console.log(numbers)
+    console.log(minimum)
+    console.log('---')
+  }
 
   return (
 
   <form onSubmit={suppliesSubmit} className="supplies__form">
     
     <div className="form-field">
-      <label htmlfor="item">Zadej novou položku</label>
+      <label htmlFor="item">Zadej novou položku</label>
       <input 
         type="text"
         value={item}
@@ -21,7 +34,7 @@ export function FormSupplies() {
     </div>
 
     <div className="form-field">
-      <label htmlfor="numbers">Pocet</label>
+      <label htmlFor="numbers">Pocet</label>
       <input 
         type="numbers"
         value={numbers}
@@ -30,7 +43,7 @@ export function FormSupplies() {
     </div>
     
     <div className="form-field">
-      <label htmlfor="minimum">Minimum</label>
+      <label htmlFor="minimum">Minimum</label>
       <input 
         type="number"
         value={minimum}

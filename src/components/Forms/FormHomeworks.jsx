@@ -1,17 +1,28 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { SettingsContext } from "../../context/SettingsContext";
 
 import './Forms.scss';
 
 export function FormHomeworks() {
+  const [work, setWork] = useState();
+  const [family, setFamily] = useState();
 
-  const {work, setWork, family, setFamily, homeworkSubmit} = useContext(SettingsContext)
+  const { } = useContext(SettingsContext)
+
+  const homeworkSubmit = (e) => {
+    e.preventDefault()
+    
+    console.log(work)
+    console.log(family)
+    console.log('---')
+  }
+
 
   return (
   <form onSubmit={homeworkSubmit} className="homeworks__form">
     
     <div className="form-field">
-      <label htmlfor="work">Zadej nový úkol:</label>
+      <label htmlFor="work">Zadej nový úkol:</label>
       <input 
         type="text" 
         value={work} 
