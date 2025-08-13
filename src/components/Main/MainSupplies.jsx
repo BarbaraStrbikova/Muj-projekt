@@ -6,6 +6,9 @@ import { FormSupplies } from '../Forms/FormSupplies';
 
 
 export function MainSupplies() {
+
+const {supplies} = useContext(SettingsContext)
+
   return (
     <section className="supplies">
       <h2 className="section__title">Zasoby v domacnosti</h2>

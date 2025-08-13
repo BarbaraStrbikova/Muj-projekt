@@ -4,13 +4,14 @@ import { SettingsContext } from "../../context/SettingsContext";
 import './Forms.scss';
 
 export function FormHomeworks() {
-  const [work, setWork] = useState();
-  const [family, setFamily] = useState();
+  const [work, setWork] = useState('');
+  const [family, setFamily] = useState('');
 
-  const { } = useContext(SettingsContext)
+  const {addNewWork} = useContext(SettingsContext)
 
   const homeworkSubmit = (e) => {
     e.preventDefault()
+    addNewWork(work, family)
     
     console.log(work)
     console.log(family)

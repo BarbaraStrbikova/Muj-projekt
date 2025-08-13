@@ -7,7 +7,7 @@ import { FormHomeworks } from '../Forms/FormHomeworks';
 
 export function MainHomework() {
 
-   const {work, family} = useContext(SettingsContext)
+   const {works} = useContext(SettingsContext)
 
   return (
     <>  

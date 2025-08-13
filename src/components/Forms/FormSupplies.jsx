@@ -1,18 +1,19 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { SettingsContext } from "../../context/SettingsContext";
 
 import './Forms.scss';
 
 export function FormSupplies() {
 
-  const [item, setItem] = useState();
-  const [numbers, setNumbers] = useState();
-  const [minimum, setMinimum] = useState();
+  const [item, setItem] = useState('');
+  const [numbers, setNumbers] = useState('');
+  const [minimum, setMinimum] = useState('');
 
-    const {} = useContext(SettingsContext)
+  const {addNewSupply} = useContext(SettingsContext)
 
-    const suppliesSubmit = (e) => {
+  const suppliesSubmit = (e) => {
     e.preventDefault()
+    addNewSupply(item, numbers, minimum)
 
     console.log(item)
     console.log(numbers)
@@ -47,7 +48,7 @@ export function FormSupplies() {
       <input 
         type="number"
         value={minimum}
-        onChange={(e) => {seMinimum(e.target.value)}}
+        onChange={(e) => {setMinimum(e.target.value)}}
         id="minimum"/>
     </div>
 
