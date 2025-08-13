@@ -5,12 +5,12 @@ export function FormHomeworks() {
   <form className="homeworks__form">
     
     <div className="form-field">
-      <label for="task"></label>
+      <label htmlfor="task"></label>
       <input type="text" id="task"/>
     </div>
 
     <div className="form-field">
-      <label for="family"></label>
+      <label htmlFor="family"></label>
       <select id="family">
         <option value=""></option>
         <option value="mother">Maminka</option>

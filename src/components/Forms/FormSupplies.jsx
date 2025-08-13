@@ -6,17 +6,17 @@ export function FormSupplies() {
   <form className="supplies__form">
     
     <div className="form-field">
-      <label for="task">Zadej novou položku</label>
+      <label htmlfor="task">Zadej novou položku</label>
       <input type="text" id="task"/>
     </div>
 
     <div className="form-field">
-      <label for="numbers">Pocet</label>
+      <label htmlfor="numbers">Pocet</label>
       <input type="number" id="numbers"/>
     </div>
     
     <div className="form-field">
-      <label for="minimum">Minimum</label>
+      <label htmlfor="minimum">Minimum</label>
       <input type="number" id="minimum"/>
     </div>
 
