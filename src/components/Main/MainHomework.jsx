@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { SettingsContext } from "../../context/SettingsContext";
+
 import './Main.scss';
 import { FormHomeworks } from '../Forms/FormHomeworks';
 
@@ -15,6 +18,7 @@ export function MainHomework() {
             </section>
              <section className="homework__have border">
                 <h3 className="title">Ukoly ke splneni:</h3>
+                
                 
             </section>
              <section className="homework__completed border">

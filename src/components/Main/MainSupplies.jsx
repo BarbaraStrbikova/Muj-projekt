@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { SettingsContext } from "../../context/SettingsContext";
+
 import './Main.scss';
 import { FormSupplies } from '../Forms/FormSupplies';
 
