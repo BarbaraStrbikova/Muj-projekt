@@ -13,8 +13,12 @@ export function SettingsProvider({children}) {
 
 useEffect( () => {
   const fetchData = async () => {
+    try {
     await getWorks()
     await getSupplies()
+    } catch (err) {
+      console.error("Chyba pri nacitani dat:", err);
+    }
   }
   fetchData()
 }, [])
@@ -49,15 +53,13 @@ useEffect( () => {
       return
     }
 
-   getWorks()    
+   await getWorks()    
   }
 
   const updateWork = async (id, work,family) => {
     const {error} = await supabase
     .from('homeworks')
-    .update(
-      work,
-      family
+    .update({work, family}
     )
     .eq('id', id)
     
@@ -124,12 +126,10 @@ const addDoneWork = (work) => {
    getSupplies()
   }
 
-  const updateSupply = async (id, numbers) => {
+  const updateSupply = async (id, updatedValues) => {
      const {error} = await supabase
     .from('supplies')
-    .update(
-      numbers,
-    )
+    .update(updatedValues)
     .eq('id', id)
     
     if (error) {

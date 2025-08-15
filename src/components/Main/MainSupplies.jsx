@@ -11,7 +11,13 @@ export function MainSupplies() {
 const {supplies, addBuySupplies, deleteSupply, updateSupply} = useContext(SettingsContext);
 const check = supplies.filter(item => item.numbers <= item.minimum )
 const fullSupplies = supplies.filter(item => item.numbers > item.minimum)
-// const sortSupplies = [...fullSupplies].sort((a, b) => a.item.localCompare(b.item));
+
+
+const sortedCheck = [...check].sort((a, b) => a.item.localeCompare(b.item));
+const sortedFullSupplies = [...fullSupplies].sort((a, b) => a.item.localeCompare(b.item));
+
+
+
 
 const buySupply = id => { 
   const supplyToMove = check.find( (item) => item.id === id);
@@ -31,7 +37,7 @@ const buySupply = id => {
       <section className="supplies__check border">
         <h3 className="title">Polozky ke zkontrolovani:</h3>
 
-        {check.length === 0
+        {sortedCheck.length === 0
       ? <p>Nacitam data ...</p>
       : <table>
         <thead>
@@ -42,7 +48,7 @@ const buySupply = id => {
           </tr>
         </thead>
           <tbody>
-            {check.map(supply => (
+            {sortedCheck.map(supply => (
               <tr key={supply.id}>
                 <td className="table">{supply.item}</td>
                 <td className="table">{supply.numbers}</td>
@@ -76,7 +82,7 @@ const buySupply = id => {
       <section className="supplies__have border">
         <h3 className="title">Moje zasoby:</h3>
 
-         {fullSupplies.length === 0
+         {sortedFullSupplies.length === 0
       ? <p>Nacitam data ...</p>
       : <table>
         <thead>
@@ -87,7 +93,7 @@ const buySupply = id => {
           </tr>
         </thead>
           <tbody>
-            {fullSupplies.map(supply => (
+            {sortedFullSupplies.map(supply => (
               <tr key={supply.id}>
                 <td className="table">{supply.item}</td>
                 <td className="table">{supply.numbers}</td>
