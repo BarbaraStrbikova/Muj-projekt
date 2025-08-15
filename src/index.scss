@@ -1,3 +1,6 @@
+@use "variables" as*;
+
+
 html { box-sizing: border-box; }
 *, ::before, ::after {box-sizing: inherit;}
 
@@ -6,12 +9,25 @@ html { box-sizing: border-box; }
     padding: 0;
     background-color: green;
     font-optical-sizing: auto;
+    font-family: $title-font;
  }
 
- .container {
-    width: 980px;
-    margin: 0 auto;
+  .container {
+   max-width: 979px;
+     margin: 0 auto;
     display: flex;
+    flex-direction: column;
+   align-items: center;
+    }
+
+ @media(min-width: 980px) {
+   .container {
+      max-width: 1200px;
+    margin: 0 auto;
+   flex-direction: row;
     justify-content: space-around;
     align-items: center;
     }
+ }
+
+

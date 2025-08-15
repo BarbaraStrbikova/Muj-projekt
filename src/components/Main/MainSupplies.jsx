@@ -29,9 +29,9 @@ const fullSupplies = supplies.filter(item => item.numbers > item.minimum)
       : <table>
         <thead>
           <tr>
-            <th className="supplies__table">Položky</th>
-            <th className="supplies__table">Počet</th>
-            <th className="supplies__table">Minimum</th>
+            <th className="supplies__table-title">Položky</th>
+            <th className="supplies__table-title">Počet</th>
+            <th className="supplies__table-title">Minimum</th>
           </tr>
         </thead>
           <tbody>
@@ -56,9 +56,9 @@ const fullSupplies = supplies.filter(item => item.numbers > item.minimum)
       : <table>
         <thead>
           <tr>
-            <th className="supplies__table">Položky</th>
-            <th className="supplies__table">Počet</th>
-            <th className="supplies__table">Minimum</th>
+            <th className="supplies__table-title">Položky</th>
+            <th className="supplies__table-title">Počet</th>
+            <th className="supplies__table-title">Minimum</th>
           </tr>
         </thead>
           <tbody>

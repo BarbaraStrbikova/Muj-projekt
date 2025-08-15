@@ -35,7 +35,7 @@ export function FormSupplies() {
     </div>
 
     <div className="form-field">
-      <label htmlFor="numbers">Pocet</label>
+      <label htmlFor="numbers">Počet</label>
       <input 
         type="numbers"
         value={numbers}

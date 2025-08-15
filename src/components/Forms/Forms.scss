@@ -1,3 +1,5 @@
+@use "../../variables" as*;
+
 .homeworks__form,
 .supplies__form {
   display: flex;
@@ -10,11 +12,44 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border-radius: 50px;
    
 } 
 
 .form-field label {
     display: block;
+    padding:  4px 6px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: $color-form;
+    white-space: nowrap;
+   
+
+}
+
+@mixin form($width, $color) {
+   border-radius: 4px;
+    border:  1px solid currentColor;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    padding:  4px 6px;
+    margin: 3px;
+    width: $width;
+    color: $color;  
+
+}
+
+
+.form-field input,
+.form-field select {
+   @include form(90%, black)
+}
+
+#add-tasks,
+#add-supplies {
+  @include form(25%, darkblue);
+  font-size: 1.3rem;
+  font-weight: 600;
+  
 }
 
 #numbers,
