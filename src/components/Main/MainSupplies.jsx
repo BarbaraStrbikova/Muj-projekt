@@ -29,17 +29,17 @@ const fullSupplies = supplies.filter(item => item.numbers > item.minimum)
       : <table>
         <thead>
           <tr>
-            <th className="supplies__table-title">Položky</th>
-            <th className="supplies__table-title">Počet</th>
-            <th className="supplies__table-title">Minimum</th>
+            <th className="table-title">Položky</th>
+            <th className="table-title">Počet</th>
+            <th className="table-title">Minimum</th>
           </tr>
         </thead>
           <tbody>
             {check.map(supply => (
               <tr key={supply.id}>
-                <td className="supplies__table">{supply.item}</td>
-                <td className="supplies__table">{supply.numbers}</td>
-                <td className="supplies__table">{supply.minimum}</td>         
+                <td className="table">{supply.item}</td>
+                <td className="table">{supply.numbers}</td>
+                <td className="table">{supply.minimum}</td>         
 
 
               </tr> ))}
@@ -56,17 +56,17 @@ const fullSupplies = supplies.filter(item => item.numbers > item.minimum)
       : <table>
         <thead>
           <tr>
-            <th className="supplies__table-title">Položky</th>
-            <th className="supplies__table-title">Počet</th>
-            <th className="supplies__table-title">Minimum</th>
+            <th className="table-title">Položky</th>
+            <th className="table-title">Počet</th>
+            <th className="table-title">Minimum</th>
           </tr>
         </thead>
           <tbody>
             {fullSupplies.map(supply => (
               <tr key={supply.id}>
-                <td className="supplies__table">{supply.item}</td>
-                <td className="supplies__table">{supply.numbers}</td>
-                <td className="supplies__table">{supply.minimum}</td>         
+                <td className="table">{supply.item}</td>
+                <td className="table">{supply.numbers}</td>
+                <td className="table">{supply.minimum}</td>         
 
 
               </tr> ))}

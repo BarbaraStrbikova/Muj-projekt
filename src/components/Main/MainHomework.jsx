@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { SettingsContext } from "../../context/SettingsContext";
+import {supabase} from '../../supabase';
 
 import './Main.scss';
 import { FormHomeworks } from '../Forms/FormHomeworks';
@@ -7,7 +8,7 @@ import { FormHomeworks } from '../Forms/FormHomeworks';
 
 export function MainHomework() {
 
-   const {works} = useContext(SettingsContext)
+   const {homeworks, updateWork, deleteWork} = useContext(SettingsContext)
 
   return (
     <>  
@@ -21,9 +22,29 @@ export function MainHomework() {
             </section>
              <section className="homework__have border">
                 <h3 className="title">Úkoly ke splnění:</h3>
-                <ul>
-                  
-                </ul>
+
+      {homeworks.length === 0
+      ? <p>Nacitam data ...</p>
+      : <table>
+        <thead>
+          <tr>
+            <th className="table-title">Úkoly</th>
+            <th className="table-title">Člen domacnosti</th>
+            
+          </tr>
+        </thead>
+          <tbody>
+            {homeworks.map(task => (
+              <tr key={task.id}>
+                <td className="table">{task.work}</td>
+                <td className="table">{task.family}</td>
+                <button className="button" onClick={() => {updateWork(task.id, task.work, task.family)}}>editovat</button>
+                <button className="button" onClick={() => {deleteWork(task.id)}}>smazat</button>
+              </tr> ))}
+
+          </tbody>
+        </table>
+        }
                 
             </section>
              <section className="homework__completed border">

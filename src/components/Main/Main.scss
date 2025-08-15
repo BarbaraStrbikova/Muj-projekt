@@ -32,21 +32,27 @@
 
 // TABULKA 
 
-@mixin table ($color) {
+@mixin tables ($color) {
     border-radius: 10px;
     box-shadow: 0 5px 14px 2px rgba(0, 0, 0, 0.15);
+    background-color: #40A838;
     color: $color;
     padding: 10px;
     margin: 5px;
 }
 
 
-.supplies__table-title{ 
-    @include table(white)
+.table-title{ 
+    @include tables(white);
 }
 
-.supplies__table {
-     @include table(whitesmoke)
+.table {
+     @include tables(whitesmoke);  
    
-   
+}
+
+//  TLACITKA
+
+.button {
+    @include tables(darkblue)
 }

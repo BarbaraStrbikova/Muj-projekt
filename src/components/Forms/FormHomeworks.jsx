@@ -40,10 +40,10 @@ export function FormHomeworks() {
         onChange={(e) => {setFamily(e.target.value)}} 
         >
         <option value=""></option>
-        <option value="mother">Maminka</option>
-        <option value="father">Tatinek</option>
-        <option value="daughter">Dcera</option>
-        <option value="son">Syn</option>
+        <option value="Maminka">Maminka</option>
+        <option value="Tatinek">Tatinek</option>
+        <option value="Dcera">Dcera</option>
+        <option value="Syn">Syn</option>
       </select>
     </div>
 

@@ -10,7 +10,7 @@ export function SettingsProvider({children}) {
 
 useEffect( () => {
   const fetchData = async () => {
-    // await getWorks()
+    await getWorks()
     await getSupplies()
   }
   fetchData()
@@ -28,7 +28,7 @@ useEffect( () => {
       console.log(error)
       return
     } 
-
+  console.log("Načtené homeworks:", data) // Přidáno pro debug
   setHomeworks(data)
   }
 
@@ -47,6 +47,38 @@ useEffect( () => {
     }
 
    getWorks()    
+  }
+
+  const updateWork = async (work,family) => {
+    const {error} = await supabase
+    .from('homeworks')
+    .update({
+      work,
+      family
+    })
+    .eg('id', id)
+    
+    if (error) {
+      console.log(error)
+      return
+    }
+
+   getWorks()
+  }
+
+  const deleteWork = async (id) => {
+
+    const {error} = await supabase
+    .from('homeworks')
+    .delete()
+    .eq('id', id)
+
+      if (error) {
+      console.log(error)
+      return
+    }
+    
+   await getWorks()
   }
 
 
@@ -90,6 +122,8 @@ useEffect( () => {
     <SettingsContext.Provider value={{
       homeworks,
       addNewWork,
+      updateWork,
+      deleteWork,
       supplies,
       addNewSupply,
                 
