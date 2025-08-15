@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { SettingsContext } from "../../context/SettingsContext";
 import {supabase} from '../../supabase';
 
@@ -9,8 +9,16 @@ import { FormHomeworks } from '../Forms/FormHomeworks';
 
 
 export function MainHomework() {
+  
+  const {homeworks, updateWork, deleteWorks, doneHomeworks, addDoneWork} = useContext(SettingsContext)
 
-   const {homeworks, updateWork, deleteWork} = useContext(SettingsContext)
+  const doneWork = id => {
+     const itemToMove = homeworks.find((item) => item.id === id);
+     if (itemToMove) {
+      addDoneWork( itemToMove)
+      deleteWork(id);
+     }
+  }
 
   return (
     <>  
@@ -40,9 +48,11 @@ export function MainHomework() {
               <tr key={task.id}>
                 <td className="table">{task.work}</td>
                 <td className="table">{task.family}</td>
-                <button className="button" onClick={} ><i className="fa-solid fa-check"></i> </button>
+                <td>
+                <button className="button" onClick={ () => {doneWork(task.id)}} ><i className="fa-solid fa-check"></i> </button>
                 <button className="button" onClick={() => {updateWork(task.id, task.work, task.family)}}><i className="fa-solid fa-pencil"></i></button>
-                <button className="button" onClick={() => {deleteWork(task.id)}}><i className="fa-solid fa-trash-can"></i> </button>
+                <button className="button" onClick={() => {deleteWorks(task.id)}}><i className="fa-solid fa-trash-can"></i> </button>
+                </td>
               </tr> ))}
 
           </tbody>
@@ -51,7 +61,29 @@ export function MainHomework() {
                 
             </section>
              <section className="homework__completed border">
-               <h3 className="title">Splněné úkoly:</h3>
+              <h3 className="title">Splněné úkoly:</h3>
+               {doneHomeworks.map(task => (
+                <table key={task.id}>
+                  <thead>
+                    <tr>
+                      <th className="table-title">Úkoly</th>
+                      <th className="table-title">Člen domacnosti</th>
+            
+                    </tr>
+                  </thead>
+                  <tbody>
+            
+              <tr>
+                <td className="table">{task.work}</td>
+                <td className="table">{task.family}</td>
+                <button className="button" onClick={() => {deleteWork(task.id)}}><i className="fa-solid fa-trash-can"></i> </button>
+              </tr> 
+
+          </tbody>
+        </table>))}
+        
+                
+
             </section>
 
         </section>

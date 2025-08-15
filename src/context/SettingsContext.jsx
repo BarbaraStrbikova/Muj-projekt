@@ -7,6 +7,8 @@ export const SettingsContext = createContext(null)
 export function SettingsProvider({children}) {
   const [homeworks, setHomeworks] = useState([]);
   const [supplies, setSupplies] = useState([]);
+  const [doneHomeworks, setDoneHomeworks] = useState([])
+ 
 
 useEffect( () => {
   const fetchData = async () => {
@@ -49,14 +51,14 @@ useEffect( () => {
    getWorks()    
   }
 
-  const updateWork = async (work,family) => {
+  const updateWork = async (id, work,family) => {
     const {error} = await supabase
     .from('homeworks')
     .update({
       work,
       family
     })
-    .eg('id', id)
+    .eq('id', id)
     
     if (error) {
       console.log(error)
@@ -66,7 +68,11 @@ useEffect( () => {
    getWorks()
   }
 
-  const deleteWork = async (id) => {
+const addDoneWork = (work) => {
+  setDoneHomeworks([...doneHomeworks, work]);
+}
+
+  const deleteWorks = async (id) => {
 
     const {error} = await supabase
     .from('homeworks')
@@ -121,9 +127,13 @@ useEffect( () => {
   return (
     <SettingsContext.Provider value={{
       homeworks,
+      setHomeworks,
+      doneHomeworks,
+      deleteWork,
       addNewWork,
       updateWork,
-      deleteWork,
+      addDoneWork,
+      deleteWorks,      
       supplies,
       addNewSupply,
                 
