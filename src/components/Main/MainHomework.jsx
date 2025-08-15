@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { SettingsContext } from "../../context/SettingsContext";
 import {supabase} from '../../supabase';
 
+
+
 import './Main.scss';
 import { FormHomeworks } from '../Forms/FormHomeworks';
 
@@ -38,8 +40,9 @@ export function MainHomework() {
               <tr key={task.id}>
                 <td className="table">{task.work}</td>
                 <td className="table">{task.family}</td>
-                <button className="button" onClick={() => {updateWork(task.id, task.work, task.family)}}>editovat</button>
-                <button className="button" onClick={() => {deleteWork(task.id)}}>smazat</button>
+                <button className="button" onClick={} ><i className="fa-solid fa-check"></i> </button>
+                <button className="button" onClick={() => {updateWork(task.id, task.work, task.family)}}><i className="fa-solid fa-pencil"></i></button>
+                <button className="button" onClick={() => {deleteWork(task.id)}}><i className="fa-solid fa-trash-can"></i> </button>
               </tr> ))}
 
           </tbody>
