@@ -10,7 +10,7 @@ import { FormHomeworks } from '../Forms/FormHomeworks';
 
 export function MainHomework() {
   
-  const {homeworks, updateWork, deleteWorks, doneHomeworks, addDoneWork} = useContext(SettingsContext)
+  const {homeworks, updateWork, deleteWork, doneHomeworks, addDoneWork} = useContext(SettingsContext)
 
   const doneWork = id => {
      const itemToMove = homeworks.find((item) => item.id === id);
@@ -34,7 +34,7 @@ export function MainHomework() {
                 <h3 className="title">Úkoly ke splnění:</h3>
 
       {homeworks.length === 0
-      ? <p>Nacitam data ...</p>
+      ? <p>Prozatim zde nebyly vložené žadne úkoly <i className="fa-solid fa-spinner"></i></p>
       : <table>
         <thead>
           <tr>
@@ -51,7 +51,7 @@ export function MainHomework() {
                 <td>
                 <button className="button" onClick={ () => {doneWork(task.id)}} ><i className="fa-solid fa-check"></i> </button>
                 <button className="button" onClick={() => {updateWork(task.id, task.work, task.family)}}><i className="fa-solid fa-pencil"></i></button>
-                <button className="button" onClick={() => {deleteWorks(task.id)}}><i className="fa-solid fa-trash-can"></i> </button>
+                <button className="button" onClick={() => {deleteWork(task.id)}}><i className="fa-solid fa-trash-can"></i> </button>
                 </td>
               </tr> ))}
 
@@ -62,26 +62,28 @@ export function MainHomework() {
             </section>
              <section className="homework__completed border">
               <h3 className="title">Splněné úkoly:</h3>
-               {doneHomeworks.map(task => (
-                <table key={task.id}>
+            
+            
+            <table>
                   <thead>
                     <tr>
                       <th className="table-title">Úkoly</th>
-                      <th className="table-title">Člen domacnosti</th>
-            
+                      <th className="table-title">Člen domacnosti</th>            
                     </tr>
                   </thead>
                   <tbody>
-            
-              <tr>
+               {doneHomeworks.map(task => (
+              <tr key={task.id}>
                 <td className="table">{task.work}</td>
                 <td className="table">{task.family}</td>
+                <td>
                 <button className="button" onClick={() => {deleteWork(task.id)}}><i className="fa-solid fa-trash-can"></i> </button>
-              </tr> 
+                </td>
+              </tr> ))}
 
           </tbody>
-        </table>))}
-        
+        </table>
+
                 
 
             </section>

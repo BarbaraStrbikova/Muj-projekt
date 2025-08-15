@@ -8,9 +8,16 @@ import {supabase} from '../../supabase';
 
 export function MainSupplies() {
 
-const {supplies} = useContext(SettingsContext);
+const {supplies, addBuySupplies, deleteSupply, updateSupply} = useContext(SettingsContext);
 const check = supplies.filter(item => item.numbers <= item.minimum )
 const fullSupplies = supplies.filter(item => item.numbers > item.minimum)
+// const sortSupplies = [...fullSupplies].sort((a, b) => a.item.localCompare(b.item));
+
+const buySupply = id => { 
+  const supplyToMove = check.find( (item) => item.id === id);
+  addBuySupplies(supplyToMove);
+  deleteSupply(id);
+}
 
   return (
     <section className="supplies">
@@ -40,7 +47,25 @@ const fullSupplies = supplies.filter(item => item.numbers > item.minimum)
                 <td className="table">{supply.item}</td>
                 <td className="table">{supply.numbers}</td>
                 <td className="table">{supply.minimum}</td>         
-
+                <td>
+                  <button className="button" onClick={ () => {updateSupply(supply.id, {numbers: supply.numbers + 1})} }>
+                    <i className="fa-solid fa-plus"></i>
+                  </button>
+                  <button className="button" onClick={() => {
+                      if (supply.numbers > 0) {
+                    updateSupply(supply.id, { numbers: supply.numbers - 1 });
+                    }
+                    }}
+                    >
+                    <i className="fa-solid fa-minus"></i>
+                  </button>
+                  <button className="button" onClick={() => {buySupply(supply.id)}}>
+                    <i className="fa-solid fa-basket-shopping"></i>
+                  </button>
+                  <button className="button" onClick={() => {deleteSupply(supply.id)}}>
+                    <i className="fa-solid fa-trash-can"></i>
+                  </button>
+                </td>
 
               </tr> ))}
 
@@ -67,7 +92,19 @@ const fullSupplies = supplies.filter(item => item.numbers > item.minimum)
                 <td className="table">{supply.item}</td>
                 <td className="table">{supply.numbers}</td>
                 <td className="table">{supply.minimum}</td>         
-
+                <td>
+                  <button className="button" onClick={ () => {updateSupply(supply.id, {numbers: supply.numbers + 1})} }>
+                    <i className="fa-solid fa-plus"></i>
+                  </button>
+                  <button className="button" onClick={() => {
+                      if (supply.numbers > 0) {
+                    updateSupply(supply.id, { numbers: supply.numbers - 1 });
+                    }
+                    }}
+                    >
+                    <i className="fa-solid fa-minus"></i>
+                  </button>
+                  </td>
 
               </tr> ))}
 

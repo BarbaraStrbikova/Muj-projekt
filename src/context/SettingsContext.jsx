@@ -7,8 +7,9 @@ export const SettingsContext = createContext(null)
 export function SettingsProvider({children}) {
   const [homeworks, setHomeworks] = useState([]);
   const [supplies, setSupplies] = useState([]);
-  const [doneHomeworks, setDoneHomeworks] = useState([])
- 
+  const [doneHomeworks, setDoneHomeworks] = useState([]);
+  const [buySupplies, setBuySupplies] = useState([]);
+
 
 useEffect( () => {
   const fetchData = async () => {
@@ -54,10 +55,10 @@ useEffect( () => {
   const updateWork = async (id, work,family) => {
     const {error} = await supabase
     .from('homeworks')
-    .update({
+    .update(
       work,
       family
-    })
+    )
     .eq('id', id)
     
     if (error) {
@@ -65,14 +66,14 @@ useEffect( () => {
       return
     }
 
-   getWorks()
+   await getWorks()
   }
 
 const addDoneWork = (work) => {
   setDoneHomeworks([...doneHomeworks, work]);
 }
 
-  const deleteWorks = async (id) => {
+  const deleteWork = async (id) => {
 
     const {error} = await supabase
     .from('homeworks')
@@ -101,7 +102,7 @@ const addDoneWork = (work) => {
       return
     } 
 
-   console.log("Načtené supplies:", data) // Přidáno pro debug
+   console.log("Načtené supplies:", data)
   setSupplies(data)
   }
 
@@ -123,6 +124,43 @@ const addDoneWork = (work) => {
    getSupplies()
   }
 
+  const updateSupply = async (id, numbers) => {
+     const {error} = await supabase
+    .from('supplies')
+    .update(
+      numbers,
+    )
+    .eq('id', id)
+    
+    if (error) {
+      console.log(error)
+      return
+    }
+
+   await getSupplies();
+
+  }
+
+  const addBuySupplies = (supply) => {
+  setBuySupplies([...buySupplies, supply]);
+}
+
+ const deleteSupply = async (id) => {
+
+    const {error} = await supabase
+    .from('supplies')
+    .delete()
+    .eq('id', id)
+
+      if (error) {
+      console.log(error)
+      return
+    }
+    
+   await getSupplies()
+  }
+
+
 
   return (
     <SettingsContext.Provider value={{
@@ -133,9 +171,11 @@ const addDoneWork = (work) => {
       addNewWork,
       updateWork,
       addDoneWork,
-      deleteWorks,      
       supplies,
       addNewSupply,
+      addBuySupplies,
+      deleteSupply,
+      updateSupply,
                 
     }}>
       {children}
