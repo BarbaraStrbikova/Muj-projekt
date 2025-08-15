@@ -10,12 +10,12 @@ import { FormHomeworks } from '../Forms/FormHomeworks';
 
 export function MainHomework() {
   
-  const {homeworks, updateWork, deleteWork, doneHomeworks, addDoneWork} = useContext(SettingsContext)
+  const {homeworks, updateWork, deleteWork, tasksCompleted, addDoneWork, deleteDoneWork} = useContext(SettingsContext)
 
   const doneWork = id => {
      const itemToMove = homeworks.find((item) => item.id === id);
      if (itemToMove) {
-      addDoneWork( itemToMove)
+      addDoneWork( itemToMove.work, itemToMove.family)
       deleteWork(id);
      }
   }
@@ -63,8 +63,9 @@ export function MainHomework() {
              <section className="homework__completed border">
               <h3 className="title">Splněné úkoly:</h3>
             
-            
-            <table>
+            {tasksCompleted.length === 0 
+            ? <p>Žádné splněné úkoly.</p>
+            :<table>
                   <thead>
                     <tr>
                       <th className="table-title">Úkoly</th>
@@ -72,17 +73,19 @@ export function MainHomework() {
                     </tr>
                   </thead>
                   <tbody>
-               {doneHomeworks.map(task => (
-              <tr key={task.id}>
-                <td className="table">{task.work}</td>
-                <td className="table">{task.family}</td>
+               {tasksCompleted.map(item => (
+              <tr key={item.id}>
+                <td className="table">{item.work}</td>
+                <td className="table">{item.family}</td>
                 <td>
-                <button className="button" onClick={() => {deleteWork(task.id)}}><i className="fa-solid fa-trash-can"></i> </button>
+                <button className="button" onClick={() => {deleteDoneWork(item.id)}}>
+                  <i className="fa-solid fa-trash-can"></i>
+                </button>
                 </td>
               </tr> ))}
 
           </tbody>
-        </table>
+        </table>}
 
                 
 

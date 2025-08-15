@@ -57,6 +57,7 @@ const buySupply = id => {
                   <button className="button" onClick={ () => {updateSupply(supply.id, {numbers: supply.numbers + 1})} }>
                     <i className="fa-solid fa-plus"></i>
                   </button>
+                  
                   <button className="button" onClick={() => {
                       if (supply.numbers > 0) {
                     updateSupply(supply.id, { numbers: supply.numbers - 1 });
@@ -65,6 +66,8 @@ const buySupply = id => {
                     >
                     <i className="fa-solid fa-minus"></i>
                   </button>
+
+
                   <button className="button" onClick={() => {buySupply(supply.id)}}>
                     <i className="fa-solid fa-basket-shopping"></i>
                   </button>

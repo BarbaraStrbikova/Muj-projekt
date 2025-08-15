@@ -16,6 +16,9 @@ export function FormHomeworks() {
     console.log(work)
     console.log(family)
     console.log('---')
+
+  setWork('');
+  setFamily('');
   }
 
 

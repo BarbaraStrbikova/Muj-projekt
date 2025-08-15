@@ -7,7 +7,8 @@ export const SettingsContext = createContext(null)
 export function SettingsProvider({children}) {
   const [homeworks, setHomeworks] = useState([]);
   const [supplies, setSupplies] = useState([]);
-  const [doneHomeworks, setDoneHomeworks] = useState([]);
+  const [tasksCompleted, setTasksCompleted] = useState([])
+  // const [doneHomeworks, setDoneHomeworks] = useState([]);
   const [buySupplies, setBuySupplies] = useState([]);
 
 
@@ -16,6 +17,7 @@ useEffect( () => {
     try {
     await getWorks()
     await getSupplies()
+    await getDoneHomeworks()
     } catch (err) {
       console.error("Chyba pri nacitani dat:", err);
     }
@@ -56,24 +58,52 @@ useEffect( () => {
    await getWorks()    
   }
 
-  const updateWork = async (id, work,family) => {
-    const {error} = await supabase
-    .from('homeworks')
-    .update({work, family}
-    )
-    .eq('id', id)
+  // const updateWork = async (id, work,family) => {
+  //   const {error} = await supabase
+  //   .from('homeworks')
+  //   .update({work, family}
+  //   )
+  //   .eq('id', id)
     
-    if (error) {
-      console.log(error)
-      return
-    }
+  //   if (error) {
+  //     console.log(error)
+  //     return
+  //   }
 
-   await getWorks()
+  //  await getWorks()
+  // }
+
+const getDoneHomeworks = async () => {
+  const {data, error} = await supabase
+  .from('tasksCompleted')
+  .select();
+
+   if (error) {
+    console.log(error);
+    return;
   }
 
-const addDoneWork = (work) => {
-  setDoneHomeworks([...doneHomeworks, work]);
+  setTasksCompleted(data);
+
 }
+
+const addDoneWork = async (work, family) => {
+  const { error } = await supabase
+    .from('tasksCompleted')
+    .insert({
+      work,
+      family,
+    });
+
+  if (error) {
+    console.log("Chyba při ukládání splněného úkolu:", error);
+    return;
+  }
+
+  await getDoneHomeworks();
+}
+
+
 
   const deleteWork = async (id) => {
 
@@ -88,6 +118,20 @@ const addDoneWork = (work) => {
     }
     
    await getWorks()
+  }
+
+  const deleteDoneWork =async (id) => {
+    const {error} = await supabase
+    .from('tasksCompleted')
+    .delete()
+    .eq('id', id)
+
+      if (error) {
+    console.log("Chyba při mazání splněného úkolu:", error);
+    return;
+  }
+
+  await getDoneHomeworks();
   }
 
 
@@ -123,7 +167,7 @@ const addDoneWork = (work) => {
       return
     }
 
-   getSupplies()
+   await getSupplies()
   }
 
   const updateSupply = async (id, updatedValues) => {
@@ -166,11 +210,12 @@ const addDoneWork = (work) => {
     <SettingsContext.Provider value={{
       homeworks,
       setHomeworks,
-      doneHomeworks,
       deleteWork,
       addNewWork,
-      updateWork,
       addDoneWork,
+      deleteDoneWork,
+      getDoneHomeworks,
+      tasksCompleted,
       supplies,
       addNewSupply,
       addBuySupplies,
