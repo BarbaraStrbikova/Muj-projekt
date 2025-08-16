@@ -1,41 +1,38 @@
 @use "../../variables" as*;
 
+
+
 .homeworks__form,
 .supplies__form {
   display: flex;
-  flex-direction: row;
-  gap: 10px;
-
+  flex-direction: column;
+  gap: 2px;
 }
 
- .form-field {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 50px;
-   
+.form-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 50px;   
 } 
 
 .form-field label {
     display: block;
-    padding:  4px 6px;
-    font-size: 1.1rem;
+    padding:  2px 3px;
+    font-size: 0.8rem;
     font-weight: 400;
     color: $color-form;
     white-space: nowrap;
-   
-
 }
 
 @mixin form($width, $color) {
    border-radius: 4px;
     border:  1px solid currentColor;
     box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-    padding:  4px 6px;
+    padding: 4px 6px;
     margin: 3px;
     width: $width;
     color: $color;  
-
 }
 
 
@@ -46,7 +43,37 @@
 
 #add-tasks,
 #add-supplies {
-  @include form(25%, darkblue);
+  @include form(50%, darkblue);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center; 
+ }
+
+#numbers,
+#minimum {
+    width: 40px;
+}
+
+
+
+
+@media(min-width:640px) and (max-width: 979px) {
+  .homeworks__form,
+  .supplies__form {
+    flex-direction: row;
+    gap: 6px;
+
+}
+
+.form-field label {
+  padding:  4px 6px;
+  font-size: 1.1rem;
+  
+}
+
+
+#add-tasks,
+#add-supplies {
   font-size: 1.3rem;
   font-weight: 600;
   
@@ -55,4 +82,27 @@
 #numbers,
 #minimum {
     width: 50px;
+}
+
+}
+
+
+@media(min-width: 980px) {
+.homeworks__form,
+.supplies__form {
+  flex-direction: row;
+  gap: 8px;
+
+}
+
+.form-field label {
+   padding:  4px 6px;
+   font-size: 1.1rem;
+    }
+
+#numbers,
+#minimum {
+    width: 60px;
+}
+
 }

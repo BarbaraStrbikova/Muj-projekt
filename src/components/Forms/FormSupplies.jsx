@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { SettingsContext } from "../../context/SettingsContext";
+import { SuppliesContext } from "../../context/SuppliesContext";
 
 import './Forms.scss';
 
@@ -9,7 +9,7 @@ export function FormSupplies() {
   const [numbers, setNumbers] = useState('');
   const [minimum, setMinimum] = useState('');
 
-  const {addNewSupply} = useContext(SettingsContext)
+  const {addNewSupply} = useContext(SuppliesContext)
 
   const suppliesSubmit = (e) => {
     e.preventDefault()

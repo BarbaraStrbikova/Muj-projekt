@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { SettingsContext } from "../../context/SettingsContext";
+import { HomeworksContext } from "../../context/HomeworksContext";
 
 import './Forms.scss';
 
@@ -7,7 +7,7 @@ export function FormHomeworks() {
   const [work, setWork] = useState('');
   const [family, setFamily] = useState('');
 
-  const {addNewWork} = useContext(SettingsContext)
+  const {addNewWork} = useContext(HomeworksContext)
 
   const homeworkSubmit = (e) => {
     e.preventDefault()
