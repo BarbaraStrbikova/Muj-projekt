@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import { SettingsContext } from "../../context/SettingsContext";
+import {SuppliesContext } from "../../context/SuppliesContext";
 
 import './Main.scss';
 import { FormSupplies } from '../Forms/FormSupplies';
 
-import {supabase} from '../../supabase';
 
 export function MainSupplies() {
 
-const {supplies, addBuySupplies, deleteSupply, updateSupply} = useContext(SettingsContext);
+const {supplies, addBuySupplies, deleteSupply, updateSupply} = useContext(SuppliesContext);
+
 const check = supplies.filter(item => item.numbers <= item.minimum )
 const fullSupplies = supplies.filter(item => item.numbers > item.minimum)
 
@@ -19,15 +19,17 @@ const sortedFullSupplies = [...fullSupplies].sort((a, b) => a.item.localeCompare
 
 
 
-const buySupply = id => { 
-  const supplyToMove = check.find( (item) => item.id === id);
+const buySupply = async (id) => { 
+  const supplyToMove = sortedCheck.find( item => item.id === id);
+  if (!supplyToMove) return;
+
   addBuySupplies(supplyToMove);
-  deleteSupply(id);
+  await deleteSupply(id);
 }
 
   return (
     <section className="supplies">
-      <h2 className="section__title">Zasoby v domacnosti</h2>
+      <h2 className="section__title">Zásoby v domácnosti</h2>
       <section className="supplies__add border">
         <h3 className="title">Nove polozky:</h3>
 
@@ -35,10 +37,10 @@ const buySupply = id => {
                   
       </section>
       <section className="supplies__check border">
-        <h3 className="title">Polozky ke zkontrolovani:</h3>
+        <h3 className="title">Položky ke zkontrolovani:</h3>
 
         {sortedCheck.length === 0
-      ? <p>Nacitam data ...</p>
+      ? <p>Žadné položky k zobrazeni...</p>
       : <table>
         <thead>
           <tr>
@@ -48,30 +50,30 @@ const buySupply = id => {
           </tr>
         </thead>
           <tbody>
-            {sortedCheck.map(supply => (
-              <tr key={supply.id}>
-                <td className="table">{supply.item}</td>
-                <td className="table">{supply.numbers}</td>
-                <td className="table">{supply.minimum}</td>         
+            {sortedCheck.map(item => (
+              <tr key={item.id}>
+                <td className="table">{item.item}</td>
+                <td className="table">{item.numbers}</td>
+                <td className="table">{item.minimum}</td>         
                 <td>
-                  <button className="button" onClick={ () => {updateSupply(supply.id, {numbers: supply.numbers + 1})} }>
+                  <button aria-label="Přidat počet" className="button" onClick={ () => {updateSupply(item.id, {numbers: item.numbers + 1})} }>
                     <i className="fa-solid fa-plus"></i>
                   </button>
                   
-                  <button className="button" onClick={() => {
-                      if (supply.numbers > 0) {
-                    updateSupply(supply.id, { numbers: supply.numbers - 1 });
-                    }
-                    }}
-                    >
+                 {item.numbers > 0 && (
+                  <button aria-label="Ubrat počet" className="button" onClick={() => {
+                  updateSupply(item.id, { numbers: item.numbers - 1 });
+                    }}>
                     <i className="fa-solid fa-minus"></i>
                   </button>
+)}
 
 
-                  <button className="button" onClick={() => {buySupply(supply.id)}}>
+                  <button aria-label="Koupit" className="button" onClick={() => {buySupply(item.id)}}>
                     <i className="fa-solid fa-basket-shopping"></i>
                   </button>
-                  <button className="button" onClick={() => {deleteSupply(supply.id)}}>
+
+                  <button aria-label="Smazat" className="button" onClick={() => {deleteSupply(item.id)}}>
                     <i className="fa-solid fa-trash-can"></i>
                   </button>
                 </td>
@@ -83,10 +85,10 @@ const buySupply = id => {
         }
       </section>
       <section className="supplies__have border">
-        <h3 className="title">Moje zasoby:</h3>
+        <h3 className="title">Moje zásoby:</h3>
 
          {sortedFullSupplies.length === 0
-      ? <p>Nacitam data ...</p>
+      ? <p>Žadné položky k zobrazeni ...</p>
       : <table>
         <thead>
           <tr>
@@ -96,23 +98,25 @@ const buySupply = id => {
           </tr>
         </thead>
           <tbody>
-            {sortedFullSupplies.map(supply => (
-              <tr key={supply.id}>
-                <td className="table">{supply.item}</td>
-                <td className="table">{supply.numbers}</td>
-                <td className="table">{supply.minimum}</td>         
+            {sortedFullSupplies.map(item => (
+              <tr key={item.id}>
+                <td className="table">{item.item}</td>
+                <td className="table">{item.numbers}</td>
+                <td className="table">{item.minimum}</td>         
                 <td>
-                  <button className="button" onClick={ () => {updateSupply(supply.id, {numbers: supply.numbers + 1})} }>
+
+                  <button aria-label="Přidat počet" className="button" onClick={ () => {updateSupply(item.id, {numbers: item.numbers + 1})} }>
                     <i className="fa-solid fa-plus"></i>
                   </button>
-                  <button className="button" onClick={() => {
-                      if (supply.numbers > 0) {
-                    updateSupply(supply.id, { numbers: supply.numbers - 1 });
-                    }
-                    }}
-                    >
-                    <i className="fa-solid fa-minus"></i>
-                  </button>
+
+              {item.numbers > 0 && (
+              <button aria-label="Ubrat počet" className="button" onClick={() => {
+              updateSupply(item.id, { numbers: item.numbers - 1 });
+              } }>
+                <i className="fa-solid fa-minus"></i>
+              </button>
+)}
+
                   </td>
 
               </tr> ))}

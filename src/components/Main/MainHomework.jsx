@@ -1,6 +1,6 @@
-import { useState, useContext } from "react";
-import { SettingsContext } from "../../context/SettingsContext";
-import {supabase} from '../../supabase';
+import { useContext } from "react";
+import { HomeworksContext } from "../../context/HomeworksContext";
+
 
 
 
@@ -10,7 +10,7 @@ import { FormHomeworks } from '../Forms/FormHomeworks';
 
 export function MainHomework() {
   
-  const {homeworks, updateWork, deleteWork, tasksCompleted, addDoneWork, deleteDoneWork} = useContext(SettingsContext)
+  const {homeworks, updateWork, deleteWork, tasksCompleted, addDoneWork, deleteDoneWork} = useContext(HomeworksContext)
 
   const doneWork = id => {
      const itemToMove = homeworks.find((item) => item.id === id);
