@@ -53,20 +53,20 @@ useEffect( () => {
    await getWorks()    
   }
 
-  // const updateWork = async (id, work,family) => {
-  //   const {error} = await supabase
-  //   .from('homeworks')
-  //   .update({work, family}
-  //   )
-  //   .eq('id', id)
+  const updateWork = async (id, work,family) => {
+    const {error} = await supabase
+    .from('homeworks')
+    .update({work, family}
+    )
+    .eq('id', id)
     
-  //   if (error) {
-  //     console.log(error)
-  //     return
-  //   }
+    if (error) {
+      console.log(error)
+      return
+    }
 
-  //  await getWorks()
-  // }
+   await getWorks()
+  }
 
 const getDoneHomeworks = async () => {
   const {data, error} = await supabase
@@ -139,6 +139,7 @@ const addDoneWork = async (work, family) => {
       addDoneWork,
       deleteDoneWork,
       getDoneHomeworks,
+      updateWork,
       tasksCompleted,
                      
     }}>

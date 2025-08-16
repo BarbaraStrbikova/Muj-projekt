@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { HomeworksContext } from "../../context/HomeworksContext";
 
 
@@ -9,8 +9,18 @@ import { FormHomeworks } from '../Forms/FormHomeworks';
 
 
 export function MainHomework() {
-  
-  const {homeworks, updateWork, deleteWork, tasksCompleted, addDoneWork, deleteDoneWork} = useContext(HomeworksContext)
+  const [editingId, setEditingId] = useState(null);
+  const [editWork, setEditWork] = useState('');
+  const [editFamily, setEditFamily] =useState('');
+
+  const {
+    homeworks, 
+    updateWork, 
+    deleteWork, 
+    tasksCompleted, 
+    addDoneWork, 
+    deleteDoneWork
+  } = useContext(HomeworksContext)
 
   const doneWork = id => {
      const itemToMove = homeworks.find((item) => item.id === id);
@@ -19,6 +29,32 @@ export function MainHomework() {
       deleteWork(id);
      }
   }
+
+  const startEdit = (task) => {
+    setEditingId(task.id);
+    setEditWork(task.work);
+    setEditFamily(task.family);
+  }
+
+  const saveEdit = async () => {
+     if (!editWork || !editFamily) {
+      alert("Vyplňte všechny údaje.");
+      return;
+    }
+
+    await updateWork(editingId, editWork, editFamily);
+    setEditingId(null);
+    setEditWork('');
+    setEditFamily('');
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditWork('');
+    setEditFamily('');
+  };
+
+
 
   return (
     <>  
@@ -46,20 +82,68 @@ export function MainHomework() {
           <tbody>
             {homeworks.map(task => (
               <tr key={task.id}>
-                <td className="table">{task.work}</td>
-                <td className="table">{task.family}</td>
-                <td>
-                <button className="button" onClick={ () => {doneWork(task.id)}} ><i className="fa-solid fa-check"></i> </button>
-                <button className="button" onClick={() => {updateWork(task.id, task.work, task.family)}}><i className="fa-solid fa-pencil"></i></button>
-                <button className="button" onClick={() => {deleteWork(task.id)}}><i className="fa-solid fa-trash-can"></i> </button>
+
+                <td className="table">{editingId === task.id ? ( 
+                  <input type="text" value={editWork} onChange={(e) => setEditWork(e.target.value)}
+                  />
+                ) : (
+                  task.work
+                )}
                 </td>
-              </tr> ))}
+
+                <td className="table">
+                  {editingId === task.id ? (
+                    <select
+                    value={editFamily}
+                    onChange={(e) => setEditFamily(e.target.value)}>
+                      <option value=""></option>
+                      <option value="Maminka">Maminka</option>
+                      <option value="Tatinek">Tatinek</option>
+                      <option value="Dcera">Dcera</option>
+                      <option value="Syn">Syn</option>
+                    </select>    
+                  ) : (   
+                    task.family 
+                  )}
+                </td>
+
+                <td>
+                  {editingId === task.id ? (
+                    <>
+                    <button className="button" onClick={saveEdit}>
+                      <i className="fa-solid fa-floppy-disk"></i>
+                    </button>
+
+                    <button className="button" onClick={cancelEdit}>
+                      <i className="fa-solid fa-xmark"></i>
+                    </button>
+                    </>
+                  ) : (
+                    <>
+                    <button className="button" onClick={ () => doneWork(task.id)}>
+                      <i className="fa-solid fa-check"></i>
+                    </button>
+
+                    <button className="button" onClick={() => startEdit(task)}>
+                      <i className="fa-solid fa-pencil"></i>
+                    </button>
+
+                    <button className="button" onClick={() => deleteWork(task.id)}>
+                      <i className="fa-solid fa-trash-can"></i>
+                    </button>                   
+                    </>
+                  )}
+                   </td>
+                  </tr>
+            ))}
 
           </tbody>
         </table>
-        }
+      }
                 
             </section>
+
+
              <section className="homework__completed border">
               <h3 className="title">Splněné úkoly:</h3>
             
