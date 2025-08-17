@@ -7,7 +7,12 @@ import { FormSupplies } from '../Forms/FormSupplies';
 
 export function MainSupplies() {
 
-const {supplies, addBuySupplies, deleteSupply, updateSupply} = useContext(SuppliesContext);
+const {
+    supplies,
+    addBuySupplies,
+    deleteSupply,
+    updateSupply} = useContext(SuppliesContext);
+
 
 const check = supplies.filter(item => item.numbers <= item.minimum )
 const fullSupplies = supplies.filter(item => item.numbers > item.minimum)
@@ -18,13 +23,14 @@ const sortedFullSupplies = [...fullSupplies].sort((a, b) => a.item.localeCompare
 
 
 
+//    TLAČITKO PRO PŘESUN POLOŽKÝ DO SEZNAMU KOUPIT NOVOU POLOŽKU
+const buySupply = id => { 
+  const supplyToMove = supplies.find( item => item.id === id);
+  if (supplyToMove) {
 
-const buySupply = async (id) => { 
-  const supplyToMove = sortedCheck.find( item => item.id === id);
-  if (!supplyToMove) return;
-
-  addBuySupplies(supplyToMove);
-  await deleteSupply(id);
+  addBuySupplies(supplyToMove.item, supplyToMove.numbers, supplyToMove.minimum );
+ deleteSupply(id);
+  }
 }
 
   return (

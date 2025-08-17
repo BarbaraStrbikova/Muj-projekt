@@ -9,6 +9,9 @@ export function SuppliesProvider({children}) {
   const [buySupplies, setBuySupplies] = useState([]);
 
 
+  //    FUNKCE PRO ZASOBY
+
+
   const getSupplies = async () => {
     const {data, error} = await supabase
     .from('supplies')
@@ -25,11 +28,12 @@ export function SuppliesProvider({children}) {
   }
 
 useEffect( () => {
-   getSupplies()
+   getSupplies();
+  getBuySupplies();
 },[])
 
 
-
+//  PŘIDÁ NOVOU ZÁSOBU
  const addNewSupply = async (item, numbers, minimum) => {
     const {error} = await supabase
     .from('supplies')
@@ -48,6 +52,7 @@ useEffect( () => {
    await getSupplies()
   }
 
+//  PRIDAVÁ NEBO UBIRÁ MNOŽSTVÍ DANE POLOŽKY
   const updateSupply = async (id, updatedValues) => {
      const {error} = await supabase
     .from('supplies')
@@ -63,37 +68,8 @@ useEffect( () => {
 
   }
 
-const getBuySupplies = async () => {
-  const {data, error} = await supabase
-  .from('suppliesToBuy')
-  .select();
-
-     if (error) {
-    console.log(error);
-    return;
-  }
-
-  setBuySupplies(data);
-}
-
-const addBuySupplies = async (item, numbers, minimum) => {
-  const {error} = await supabase
-  .from('suppliesToBuy')
-  .insert({
-    item, 
-    numbers,
-    minimum,
-  });
-
-  if (error) {
-     console.log("Chyba při ukládání splněného úkolu:", error);
-    return;
-  }
-
-  await getBuySupplies();
-}
-
- const deleteSupply = async (id) => {
+//    SMAŽE ZÁSOBU
+   const deleteSupply = async (id) => {
 
     const {error} = await supabase
     .from('supplies')
@@ -110,15 +86,87 @@ const addBuySupplies = async (item, numbers, minimum) => {
 
 
 
+//    FUNKCE PRO KOUPI NOVÉ ZASOBY
+
+
+const getBuySupplies = async () => {
+  const {data, error} = await supabase
+  .from('suppliesToBuy')
+  .select();
+
+     if (error) {
+    console.log(error);
+    return;
+  }
+
+  setBuySupplies(data);
+}
+
+//    PŘESUNE POLOŽKU DO NAKUPNIHO SEZNAMU
+const addBuySupplies = async (item, numbers, minimum) => {
+  const {error} = await supabase
+  .from('suppliesToBuy')
+  .insert({
+    item, 
+    numbers,
+    minimum,
+  });
+
+  if (error) {
+     console.log("Chyba při ukládání zásob do nákupního seznamu:", error);
+    return;
+  }
+
+  await getBuySupplies();
+}
+
+
+//  PRIDAVÁ NEBO UBIRÁ MNOŽSTVÍ DANE POLOŽKY 
+  const updateBuySupplies = async (id, updatedValues) => {
+     const {error} = await supabase
+    .from('suppliesToBuy')
+    .update(updatedValues)
+    .eq('id', id)
+    
+    if (error) {
+      console.log(error)
+      return
+    }
+
+   await getBuySupplies();
+
+  }
+
+//  SMAŽE DANOU POLOŽKU
+ const deleteBuySupply = async (id) => {
+
+    const {error} = await supabase
+    .from('suppliesToBuy')
+    .delete()
+    .eq('id', id)
+
+      if (error) {
+      console.log(error)
+      return
+    }
+    
+   await getBuySupplies()
+  }
+
+
+
+
   return (
     <SuppliesContext.Provider value={{
       supplies,
-      setBuySupplies,
+      buySupplies,
       addNewSupply, 
       updateSupply,    
       addBuySupplies,
       deleteSupply,
+      deleteBuySupply,
       getBuySupplies,
+      updateBuySupplies,
 
                     
     }}>

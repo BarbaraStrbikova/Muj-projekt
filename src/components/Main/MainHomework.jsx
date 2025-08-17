@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { HomeworksContext } from "../../context/HomeworksContext";
 
-
+import {SuppliesToBuy} from './SuppliesToBuy'
 
 
 import './Main.scss';
@@ -22,6 +22,8 @@ export function MainHomework() {
     deleteDoneWork
   } = useContext(HomeworksContext)
 
+
+//    TLAČITKO PRO PŘESUN POLOŽKÝ
   const doneWork = id => {
      const itemToMove = homeworks.find((item) => item.id === id);
      if (itemToMove) {
@@ -30,12 +32,14 @@ export function MainHomework() {
      }
   }
 
+//    TLAČITKO PRO PŘEPIS DAT  
   const startEdit = (task) => {
     setEditingId(task.id);
     setEditWork(task.work);
     setEditFamily(task.family);
   }
 
+//    TLAČITKO PRO ULOŽENI DAT
   const saveEdit = async () => {
      if (!editWork || !editFamily) {
       alert("Vyplňte všechny údaje.");
@@ -48,6 +52,7 @@ export function MainHomework() {
     setEditFamily('');
   };
 
+  //    TLAČITKO PRO UKONČENI PŘEPISU
   const cancelEdit = () => {
     setEditingId(null);
     setEditWork('');
@@ -70,7 +75,7 @@ export function MainHomework() {
                 <h3 className="title">Úkoly ke splnění:</h3>
 
       {homeworks.length === 0
-      ? <p>Prozatim zde nebyly vložené žadne úkoly <i className="fa-solid fa-spinner"></i></p>
+      ? <p>Prozatím zde nebyly vložené žadne úkoly <i className="fa-solid fa-spinner"></i></p>
       : <table>
         <thead>
           <tr>
@@ -140,7 +145,10 @@ export function MainHomework() {
           </tbody>
         </table>
       }
-                
+      <h3 className="title">Položky, které je třeba koupit:</h3>
+             <SuppliesToBuy/> 
+
+
             </section>
 
 
@@ -171,7 +179,7 @@ export function MainHomework() {
           </tbody>
         </table>}
 
-                
+               
 
             </section>
 

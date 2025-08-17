@@ -19,6 +19,10 @@ export function FormSupplies() {
     console.log(numbers)
     console.log(minimum)
     console.log('---')
+
+    setItem('');
+    setNumbers('');
+    setMinimum('');
   }
 
   return (

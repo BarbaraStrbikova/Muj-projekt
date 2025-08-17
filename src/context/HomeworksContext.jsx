@@ -21,7 +21,7 @@ useEffect( () => {
   fetchData()
 }, [])
 
-
+//    FUNKCE PRO NOVÝ ÚKOL
 
   const getWorks = async () => {
     const {data, error} = await supabase
@@ -37,6 +37,7 @@ useEffect( () => {
   }
 
 
+//    PŘIDÁ NOVÝ ÚKOL
   const addNewWork = async (work, family) => {
     const {error} = await supabase
     .from('homeworks')
@@ -53,6 +54,7 @@ useEffect( () => {
    await getWorks()    
   }
 
+//    ÚPRAVA ÚKOLU
   const updateWork = async (id, work,family) => {
     const {error} = await supabase
     .from('homeworks')
@@ -68,6 +70,25 @@ useEffect( () => {
    await getWorks()
   }
 
+  //    SMAŽE DANÝ ÚKOL
+  const deleteWork = async (id) => {
+    const {error} = await supabase
+    .from('homeworks')
+    .delete()
+    .eq('id', id)
+
+      if (error) {
+      console.log(error)
+      return
+    }
+    
+   await getWorks()
+  }
+
+
+//    FUNKCE PRO SPLNĚNÉ ÚKOLY
+
+
 const getDoneHomeworks = async () => {
   const {data, error} = await supabase
   .from('tasksCompleted')
@@ -81,6 +102,7 @@ const getDoneHomeworks = async () => {
   setTasksCompleted(data);
 }
 
+//    PŘESUNÉ POLOŽKY DO SEZNAMU SPLNĚNÝCH ÚKOLŮ
 const addDoneWork = async (work, family) => {
   const { error } = await supabase
     .from('tasksCompleted')
@@ -97,24 +119,8 @@ const addDoneWork = async (work, family) => {
   await getDoneHomeworks();
 }
 
-
-
-  const deleteWork = async (id) => {
-
-    const {error} = await supabase
-    .from('homeworks')
-    .delete()
-    .eq('id', id)
-
-      if (error) {
-      console.log(error)
-      return
-    }
-    
-   await getWorks()
-  }
-
-  const deleteDoneWork =async (id) => {
+ //    SMAŽE DANÝ ÚKOL
+const deleteDoneWork =async (id) => {
     const {error} = await supabase
     .from('tasksCompleted')
     .delete()

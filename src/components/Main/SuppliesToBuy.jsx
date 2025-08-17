@@ -3,13 +3,13 @@ import { useContext } from "react";
 import {SuppliesContext } from "../../context/SuppliesContext";
 import './Main.scss';
 
-export function SupplyToBuy() {
+export function SuppliesToBuy() {
 
-  const {addBuySupplies, setBuySupplies, getBuySupplies} = useContext(SuppliesContext);
+  const { buySupplies, updateBuySupplies, deleteBuySupply } = useContext(SuppliesContext);
 
 return (
   <>
-  {setBuySupplies.length === 0
+  {buySupplies.length === 0
       ? <p>Žadné položky k zobrazeni...</p>
       : <table>
         <thead>
@@ -20,33 +20,28 @@ return (
           </tr>
         </thead>
           <tbody>
-            {setBuySupplies.map(item => (
+            {buySupplies.map(item => (
               <tr key={item.id}>
                 <td className="table">{item.item}</td>
                 <td className="table">{item.numbers}</td>
                 <td className="table">{item.minimum}</td>   
                       
                 <td>
-                  <button aria-label="Přidat počet" className="button" onClick={ () => {updateSupply(item.id, {numbers: item.numbers + 1})} }>
+                  <button aria-label="Přidat počet" className="button" onClick={ () => {updateBuySupplies(item.id, {numbers: item.numbers + 1})} }>
                     <i className="fa-solid fa-plus"></i>
                   </button>
                   
                  {item.numbers > 0 && (
                   <button aria-label="Ubrat počet" className="button" onClick={() => {
-                  updateSupply(item.id, { numbers: item.numbers - 1 });
+                  updateBuySupplies(item.id, { numbers: item.numbers - 1 });
                     }}>
                     <i className="fa-solid fa-minus"></i>
                   </button>
 )}
-
-
-                  <button aria-label="Koupit" className="button" onClick={() => {buySupply(item.id)}}>
-                    <i className="fa-solid fa-basket-shopping"></i>
-                  </button>
-
-                  <button aria-label="Smazat" className="button" onClick={() => {deleteSupply(item.id)}}>
+                  
+                   <button aria-label="Smazat" className="button" onClick={() => {deleteBuySupply(item.id)}}>
                     <i className="fa-solid fa-trash-can"></i>
-                  </button>
+                  </button> 
                 </td>
 
               </tr> ))}
@@ -57,8 +52,8 @@ return (
   
   
   
-  
   </>
+  
 )
 
 
