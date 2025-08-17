@@ -63,9 +63,35 @@ useEffect( () => {
 
   }
 
-const addBuySupplies = (supply) => {
-  setBuySupplies((prev) => [...prev, supply]);
-};
+const getBuySupplies = async () => {
+  const {data, error} = await supabase
+  .from('suppliesToBuy')
+  .select();
+
+     if (error) {
+    console.log(error);
+    return;
+  }
+
+  setBuySupplies(data);
+}
+
+const addBuySupplies = async (item, numbers, minimum) => {
+  const {error} = await supabase
+  .from('suppliesToBuy')
+  .insert({
+    item, 
+    numbers,
+    minimum,
+  });
+
+  if (error) {
+     console.log("Chyba při ukládání splněného úkolu:", error);
+    return;
+  }
+
+  await getBuySupplies();
+}
 
  const deleteSupply = async (id) => {
 
@@ -87,11 +113,13 @@ const addBuySupplies = (supply) => {
   return (
     <SuppliesContext.Provider value={{
       supplies,
-      buySupplies,
+      setBuySupplies,
       addNewSupply, 
       updateSupply,    
       addBuySupplies,
       deleteSupply,
+      getBuySupplies,
+
                     
     }}>
       {children}

@@ -83,7 +83,10 @@ const buySupply = async (id) => {
           </tbody>
         </table>
         }
+
       </section>
+
+      
       <section className="supplies__have border">
         <h3 className="title">Moje zásoby:</h3>
 
