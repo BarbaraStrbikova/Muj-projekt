@@ -13,10 +13,6 @@ export function FormHomeworks() {
     e.preventDefault()
     addNewWork(work, family)
     
-    console.log(work)
-    console.log(family)
-    console.log('---')
-
   setWork('');
   setFamily('');
   }

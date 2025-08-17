@@ -54,7 +54,7 @@ useEffect( () => {
    await getWorks()    
   }
 
-//    ÚPRAVA ÚKOLU
+//    EDITACE / PŘEPSANÍ ÚKOLU
   const updateWork = async (id, work,family) => {
     const {error} = await supabase
     .from('homeworks')
@@ -118,6 +118,8 @@ const addDoneWork = async (work, family) => {
 
   await getDoneHomeworks();
 }
+
+
 
  //    SMAŽE DANÝ ÚKOL
 const deleteDoneWork =async (id) => {

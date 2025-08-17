@@ -13,7 +13,11 @@ export function MainHomework() {
   const [editWork, setEditWork] = useState('');
   const [editFamily, setEditFamily] =useState('');
 
+  //  const [work, setWork] = useState('');
+  // const [family, setFamily] = useState('');
+
   const {
+    addNewWork,
     homeworks, 
     updateWork, 
     deleteWork, 
@@ -58,6 +62,12 @@ export function MainHomework() {
     setEditWork('');
     setEditFamily('');
   };
+
+   //    TLAČITKO PRO VRACENI POLOŽKY ZPATKY DO NESPLNĚNÝCH ÚKOLŮ
+     const transferWork = (item) => {
+      addNewWork(item.work, item.family)    
+      deleteDoneWork(item.id)
+  }
 
 
 
@@ -160,19 +170,27 @@ export function MainHomework() {
             :<table>
                   <thead>
                     <tr>
-                      <th className="table-title">Úkoly</th>
-                      <th className="table-title">Člen domacnosti</th>            
+                      <th className="table-title">Hotovo</th>
+                      <th className="table-title">Splněné úkoly</th>  
+                      <th className="table-title">Člen domacnosti</th>          
                     </tr>
                   </thead>
                   <tbody>
                {tasksCompleted.map(item => (
               <tr key={item.id}>
+                <i className="fa-solid fa-check table_check"></i>
                 <td className="table">{item.work}</td>
                 <td className="table">{item.family}</td>
                 <td>
+
+                <button className="button" onClick={() => {transferWork(item)}}>
+                  <i className="fa-solid fa-arrow-up-from-bracket"></i>
+                </button>
+
                 <button className="button" onClick={() => {deleteDoneWork(item.id)}}>
                   <i className="fa-solid fa-trash-can"></i>
                 </button>
+
                 </td>
               </tr> ))}
 

@@ -5,7 +5,15 @@ import './Main.scss';
 
 export function SuppliesToBuy() {
 
-  const { buySupplies, updateBuySupplies, deleteBuySupply } = useContext(SuppliesContext);
+  const {addNewSupply, buySupplies, updateBuySupplies, deleteBuySupply } = useContext(SuppliesContext);
+
+
+  //    TLAČITKO PRO VRACENI POLOŽKY ZPATKY DO NESPLNĚNÝCH ÚKOLŮ
+     const transferSupply = (item) => {
+      addNewSupply(item.item, item.numbers, item.minimum)    
+      deleteBuySupply(item.id)
+  }
+
 
 return (
   <>
@@ -38,6 +46,10 @@ return (
                     <i className="fa-solid fa-minus"></i>
                   </button>
 )}
+
+                  <button className="button" onClick={() => {transferSupply(item)}}>
+                    <i className="fa-solid fa-arrow-up-from-bracket"></i>
+                  </button>
                   
                    <button aria-label="Smazat" className="button" onClick={() => {deleteBuySupply(item.id)}}>
                     <i className="fa-solid fa-trash-can"></i>
