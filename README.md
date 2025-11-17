@@ -46,9 +46,9 @@ npm run dev
 - Po spuštění se aplikace otevře na URL, kterou ti Vite zobrazí (např. http://localhost:5173).
 - Pokud používáš Supabase, ujisti se, že máš ve složce projektu .env soubor s klíči:
 
-```env
 VITE_SUPABASE_URL=tvůj_supabase_url
 VITE_SUPABASE_KEY=tvůj_supabase_klíč
+
 
 - Díky tomu bude aplikace komunikovat s databází a autentizací správně.
 
